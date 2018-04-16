@@ -33,34 +33,34 @@ class MainActivity : AppCompatActivity() {
                 refresh()
             }
         })
+        startService(Intent(this, IPFSDaemonService::class.java))
 
-        daemonButton.setOnClickListener({
-            startService(Intent(this, IPFSDaemonService::class.java))
+        daemonButton.visibility = View.GONE
+        State.isDaemonRunning = true
 
-            daemonButton.visibility = View.GONE
-            State.isDaemonRunning = true
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Initializing Decentralised Server")
+        progressDialog.show()
 
-            val progressDialog = ProgressDialog(this)
-            progressDialog.setMessage("starting daemon")
-            progressDialog.show()
-            
-            Thread(Runnable {
-                var version: VersionInfo? = null
-                while (version == null) {
-                    try {
-                        version = ipfs.info.version()
-                    } catch (ignored: Exception) {
-                    }
+        Thread(Runnable {
+            var version: VersionInfo? = null
+            while (version == null) {
+                try {
+                    version = ipfs.info.version()
+                } catch (ignored: Exception) {
                 }
+            }
 
-                runOnUiThread {
-                    progressDialog.dismiss()
-                    startActivityFromClass(DetailsActivity::class.java)
-                }
-            }).start()
+            runOnUiThread {
+                progressDialog.dismiss()
+                startActivityFromClass(DetailsActivity::class.java)
+            }
+        }).start()
 
-            refresh()
-        })
+        refresh()
+        /*daemonButton.setOnClickListener({
+
+        })*/
 
         daemonStopButton.setOnClickListener({
             stopService(Intent(this, IPFSDaemonService::class.java))

@@ -107,6 +107,7 @@ class DetailsActivity : AppCompatActivity() {
                 try {
                     val version = ipfs.info.version()
                     val bandWidth = ipfs.stats.bandWidth()
+                    val blocks = ipfs.name
 
                     runOnUiThread {
                         versionTextView.text = "Version: ${version?.Version} \nRepo: ${version?.Repo}"

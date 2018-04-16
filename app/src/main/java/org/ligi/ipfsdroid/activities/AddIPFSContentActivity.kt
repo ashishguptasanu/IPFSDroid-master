@@ -61,6 +61,7 @@ class AddIPFSContentActivity : HashTextAndBarcodeActivity() {
 
         addWithUI {
             ipfs.add.file(createTempFile)
+            ipfs.add.ipfs.
         }
     }
 

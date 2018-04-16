@@ -23,7 +23,7 @@ class IPFSDaemonService : IntentService("IPFSDaemonService") {
         val pIntent = PendingIntent.getActivity(this, 0, targetIntent, 0)
         val builder = NotificationCompat.Builder(this).setOngoing(true)
                 .setSmallIcon(R.drawable.notification)
-                .setContentTitle("IPFS Daemon")
+                .setContentTitle("Detronium")
                 .setContentText("The daemon is running")
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "exit", pendingExit)
 
