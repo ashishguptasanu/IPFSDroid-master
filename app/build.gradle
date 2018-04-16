@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'de.mobilej.unmock'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.ben-manes.versions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+
+    defaultConfig {
+        applicationId "org.ligi.ipfsdroid"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 11
+        versionName "0.11"
+        archivesBaseName = "IPFSDroid-$versionName"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        incremental true
+    }
+
+    lintOptions {
+        // for OKIO
+        warning 'InvalidPackage'
+    }
+}
+
+dependencies {
+    compile "com.github.hotchemi:permissionsdispatcher:$permissiondispatcher_version"
+    kapt "com.github.hotchemi:permissionsdispatcher-processor:$permissiondispatcher_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    testCompile "junit:junit:4.12"
+    testCompile "com.squareup.assertj:assertj-android:1.2.0"
+    testCompile "com.android.support:support-annotations:$support_version"
+
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.ligi:tracedroid:1.4"
+    compile "com.google.dagger:dagger:$dagger_version"
+
+    compile "com.android.support:support-v13:$support_version"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+
+    compile "com.chibatching.kotpref:kotpref:2.5.0"
+    compile "com.chibatching.kotpref:initializer:2.5.0"
+
+    compile 'net.steamcrafted:load-toast:1.0.12'
+    compile 'com.github.ligi:ipfs-api-kotlin:0.11'
+
+    compile 'com.github.ligi:KAXT:0.19'
+
+    compile 'com.github.kenglxn.QRGen:android:2.4.0'
+
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
